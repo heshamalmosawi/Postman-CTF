@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to HTTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #555;
+        }
+
+        ul {
+            margin: 10px 0;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Introduction to HTTP</h1>
+    <p>HTTP (Hypertext Transfer Protocol) is the foundation of how data communicates on the web. It defines how messages
+        are formatted and sent, and how the recepients should respond to various requests.</p>
+
+    <h2>Basic Concepts</h2>
+    <ul>
+        <li><strong>HTTP Requests:</strong> Made by clients (like users through web browsers) to web servers to request
+            resources. They
+            include methods like <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code>.
+            However, our focus in this workshop will be only <code>GET</code> and <code>POST</code>.</li>
+        <li><strong>HTTP Responses:</strong> Returned by servers to clients in response to requests. They include a
+            status code, headers, and a body.</li>
+        <li><strong>Status Codes:</strong> Numeric codes that tell us the result of the request. What we will use today:
+            <ul>
+                <li><code>200 OK</code> – Request was successful.</li>
+                <li><code>401 Unauthorized</code> – User authentication is required and has failed or has not been
+                    provided.</li>
+                <li><code>403 Forbidden</code> – The server understood the request, but refuses to authorize it.</li>
+
+                <li><code>404 Not Found</code> – Requested resource or page was not found.</li>
+            </ul>
+        </li>
+        <li><strong>Headers:</strong> Key-value pairs sent with requests and responses that provide additional
+            information about the request or response. For example, <code>Content-Type:text/html;</code> specifies the
+            media type
+            is text as html code.</li>
+        <li><strong>Cookies:</strong> Small pieces of data sent from a server and stored on the client. They are used
+            for session management and tracking.</li>
+    </ul>
+
+    <h2>Example HTTP Request and Response</h2>
+    <p><strong>Request:</strong></p>
+    <pre><code>GET /index.html HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0</code></pre>
+
+    <p><strong>Response:</strong></p>
+    <pre><code>HTTP/1.1 200 OK
+Content-Type: text/html
+
+&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;Example&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;&lt;h1&gt;Hello, World!&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <a href="/challengeinfo">Start the challenge!</a>
+</body>
+
+</html>
