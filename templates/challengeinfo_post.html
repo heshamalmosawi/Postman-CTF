@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Challenge Instructions</title>
+</head>
+<body>
+    <h1>Challenge Instructions</h1>
+    <p>A Capture The Flag (CTF) competition is a type of cybersecurity challenge where participants solve a series of tasks or puzzles to find hidden strings of text, known as "flags." These flags are then submitted to gain points. CTFs are often used to test and improve cybersecurity skills.</p>
+
+    <h2>How CTF Works</h2>
+    <ol>
+        <li><b>Challenges:</b> The competition consists of multiple challenges or tasks. Each challenge has a specific goal, such as exploiting a vulnerability, solving a cryptographic puzzle, or reversing an executable.</li>
+        <li><b>Flags:</b> Each challenge has one or more flags, which are unique strings that serve as proof of successful task completion. The format of flags can vary but is often standardized for a given competition.</li>
+        <li><b>Submission:</b> Participants submit the flags they find to a scoring server, typically via a web interface, to earn points.</li>
+        <li><b>Scoring:</b> Points are awarded based on the difficulty of the challenge. The team or individual with the most points at the end of the competition wins.</li>
+    </ol>
+
+    <h2>Instructions for Participants</h2>
+    <ol>
+        <li><b>Start by Retrieving Challenge Info:</b>
+            <ul>
+                <li>To get the information about a specific challenge, make a POST request to /challengeinfo. This request will return the flag and detailed instructions for the challenge.</li>
+                <li>Example: POST /challengeinfo</li>
+                <li>Response: { "flag_1": "{{ flag }}", "instructions": "Detailed instructions for the challenge..." }</li>
+            </ul>
+        </li>
+        <li><b>Visit the Form Page:</b>
+            <ul>
+                <li>As part of the challenge, you need to visit the page located at '<a href="/form?id=5">/form</a>'' to complete certain tasks or retrieve additional information.</li>
+                <li>Example: GET /form</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Notes</h2>
+    <ul>
+        <li>Ensure you save all the flags you find as they are critical for submitting your solutions.</li>
+        <li>Follow the instructions provided for each challenge carefully to successfully retrieve and submit the flags.</li>
+        <li>Pay attention to the format and submission guidelines to ensure your flags are accepted.</li>
+    </ul>
+
+    <p>Good luck, and have fun solving the challenges!</p>
+
+    <p>Also here is the first flag for free :)))</p>
+    <h4>{flag!_toilet} (any name)</h4>
+</body>
+</html>
