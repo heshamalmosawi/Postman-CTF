@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, make_response, render_template, request
 
 app = Flask(__name__)
+app.json.sort_keys = False
 
 @app.route("/")
 def index():
@@ -9,9 +10,16 @@ def index():
 @app.route("/challengeinfo", methods=["GET", "POST"])
 def challengeinfo():
     if request.method == "GET":
-        return render_template('challengeinfo_get.html')
+        response = make_response(render_template('challengeinfo_get.html'), 405)
+        return response
     elif request.method == "POST":
-        return render_template("challengeinfo_post.html")
+        return jsonify({
+            "Greetings": "Welcome to the challenge!",
+            "Goal": "To collect all flags and submit them through <github pages url>",
+            "Example": "As example, you would send an HTTP request through the Postman application and get a flag that will be written in the format 'FLAG1_ABCDE'",
+            "Next-step": "Navigate to the '/form' path to continue with the challenge."
+        })
+
 
 @app.route("/html", methods=["GET"])
 def html():
@@ -20,6 +28,10 @@ def html():
 @app.route("/http", methods=["GET"])
 def http():
     return render_template('httppage.html')
+
+@app.route("/formexample", methods=["GET"])
+def form_example():
+     return render_template('formexample.html')
 
 @app.route('/form', methods=["GET", "POST"])
 def form():
