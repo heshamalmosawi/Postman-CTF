@@ -73,10 +73,12 @@ def form():
 
 @app.route('/freeflag', methods=["GET", "POST"])
 def freeflag():
-    if request.method == 'GET':
+    if not 'Postman' in request.headers.get('User-Agent'):
         return render_template('freeflag.html')
     elif request.method == 'POST':
-        return '''<h1>Congratulations! Here is your flag: {flag3_Aura}</h1>'''
+        return jsonify({'flag':'FLAG7_VOERJ'})
+    else:
+        return '''<p>This is not a POST request!</p>'''
 
 @app.route('/challenge', methods=["GET"])
 def challenge():
@@ -87,7 +89,7 @@ def challenge():
 
     if request.method == 'GET':
         if sha_cookie:
-            return render_template('successwithflag.html', flag='FLAG5_EF2NJ', message='Try playing with your cookies for the next flag.')
+            return render_template('successwithflag.html', flag='FLAG5_EF2NJ', message='Try playing with your cookies for the next flag. On a browser, visit the <a href=/freeflag>/freeflag</a> for your next flag.')
         else:
             return make_response(render_template('challenger.html'), 401)
 

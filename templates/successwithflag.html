@@ -10,5 +10,6 @@
     {% if next %}
     <p>Go to /{{ next }} for the next flag.</p>
     {% endif %}
+    {% if message %} <p> {{ message | safe }}</p>    {% endif %}
 </body>
 </html>
