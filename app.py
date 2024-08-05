@@ -78,20 +78,19 @@ def freeflag():
     elif request.method == 'POST':
         return '''<h1>Congratulations! Here is your flag: {flag3_Aura}</h1>'''
 
-@app.route('/challenge', methods=["GET", "POST"])
+@app.route('/challenge', methods=["GET"])
 def challenge():
     if not 'Postman' in request.headers.get('User-Agent'):
         return make_response(render_template('gobacktopostman.html'), 403)
     
+    sha_cookie = request.cookies.get('SHA256_ENCRYPTED')
+
     if request.method == 'GET':
-        return render_template('challenger.html')
-    elif request.method == 'POST':
-        flag = request.form.get('flag')
-        if flag == '{shai_karak_flag4}':
-            return '''<h1>Correct!</h1>
-                      <p>Now you can go to your next question ......</p>'''
+        if sha_cookie:
+            return render_template('successwithflag.html', flag='FLAG5_EF2NJ', message='Try playing with your cookies for the next flag.')
         else:
-            return "<h1>Try again</h1>"
+            return make_response(render_template('challenger.html'), 401)
+
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -99,11 +98,21 @@ def login():
         return render_template('loginer.html')
     elif request.method == 'POST':
         name = request.form.get('name')
-        if name == 'fwNGBK2uqXyh/oR8g6ZsiQ==':
-            return '''<h1>Now here is your flag: {shai_karak_flag4}</h1>
-                      <h3>Go back to /challenge to submit your flag to continue to your next question</h3>'''
+        if name == 'YWRtaW4K':
+            return jsonify({'flag': '{flag4_HNIVW}', 
+                            'Message': 'Send a GET request to /challenge with the cookies with the value below to get your next flag.',
+                            'first-cookie': 'SHA256_ENCRYPTED=33674db2d4e3b45263374658a165544f44af510a6fd304d100d1aed81971ccd1; Path=/; Expires=Tue, 05 Aug 2025 18:20:00 GMT;',
+                            'second-cookie': 'getflag = false; Path=/; Expires=Tue, 05 Aug 2025 18:20:00 GMT;'
+                            })
         else:
             return "<h1>Try Again</h1>"
+
+@app.before_request
+def before_request_func():
+    flag = request.cookies.get('getflag')
+    if flag == 'true':
+        return jsonify({'flag6': 'getflag cookie is set to true! heres you\'re next flag {FLAG6_GRWNO}',
+                        'message': 'Now remove this cookie or set it back to false to continue the challenge.'})
 
 if __name__ == '__main__':
     app.run(debug=True)
