@@ -35,15 +35,26 @@ def form_example():
 
 @app.route('/form', methods=["GET", "POST"])
 def form():
+    if not 'Postman' in request.headers.get('User-Agent'):
+        return make_response(render_template('gobacktopostman.html'), 403)
+    if 'reboot01' != request.args.get('name', default=''):
+        return make_response(jsonify({"error": "Missing GET query parameter 'name'. Please try again. p.s its the school the presenters are representing!"}), 400)
+
     if request.method == 'GET':
-        return render_template('formexample.html')
+        return render_template('formexercise.html')
     elif request.method == 'POST':
+        #
         number = request.form.get('number') 
-        if number == '5':
-            return '''<h1>Correct! Here is your flag: {skibididi_toilet_flag2}</h1>
-                      <p>Now go to '<a href="/freeflag">/freeflag</a>' </p>'''
+        if number == '400':
+            return jsonify({
+                "response": "Good job! Here is the second flag {FLAG2_NMBDV}",
+                "info": "GET parameters are typically used to identify resources for the response and are visible in the URL, whilst POST values are usually used to submit data without exposing it in the URL, such as login details etc.",
+                "next-step": "Visit the /challenge path for your third flag."
+            })
         else:
-            return "<h1>Try again</h1>"
+            return make_response( jsonify({
+                "error": "HTTP POST request with invalid or empty form data! GET the page to view the form."
+            }), 400)
 
 @app.route('/freeflag', methods=["GET", "POST"])
 def freeflag():
