@@ -17,7 +17,7 @@ def challengeinfo():
             "Greetings": "Welcome to the challenge!",
             "Goal": "To collect all flags and submit them through <github pages url>",
             "Example": "As example, you would send an HTTP request through the Postman application and get a flag that will be written in the format 'FLAG1_ABCDE'",
-            "Next-step": "Navigate to the '/form' path to continue with the challenge."
+            "Next-step": "Navigate to the '/getrequest' path to continue with the challenge."
         })
 
 
@@ -40,13 +40,13 @@ def getreq():
     match request.args.get('name'):
         case None:
             #TODO: MAYBE ADD AN ACTUAL ERROR PAGE
-            return make_response(jsonify({"error":"Missing GET parameter. Please send an HTTP request with a valid Parameter."}), 400) 
+            return make_response(jsonify({"error":"Missing GET parameter. Please guess a number 1-10 through a GET request."}), 400) 
         case "1" | "2" | "3" | "4" | "5" | "6" | "7" | "9":
             return make_response(jsonify({"Wrong guess": f"{request.args.get('name')} is not the correct number! please try again."}))
         case "8":
-            return render_template('successwithflag.html', flag='FLAG2_NMBDV')
+            return render_template('successwithflag.html', flag='FLAG2_NMBDV', next='postform')
         case _:
-            return make_response(jsonify({"error":"Missing GET parameter. Please send an HTTP request with a valid Parameter."}), 400)
+            return make_response(jsonify({"error":"Invalid GET parameter. Please send an HTTP request with a valid Parameter."}), 400)
 
 
 
@@ -62,7 +62,7 @@ def form():
         number = request.form.get('number') 
         if number == '400':
             return jsonify({
-                "response": "Good job! Here is the second flag {FLAG3_RBOOT}",
+                "response": "Good job! Here is the third flag {FLAG3_RBOOT}",
                 "info": "GET parameters are typically used to identify resources for the response and are visible in the URL, whilst POST values are usually used to submit data without exposing it in the URL, such as login details etc.",
                 "next-step": "Visit the /challenge path for your fourth flag."
             })
