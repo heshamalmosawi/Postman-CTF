@@ -33,13 +33,28 @@ def http():
 def form_example():
      return render_template('formexample.html')
 
-@app.route('/form', methods=["GET", "POST"])
+@app.route("/getrequest", methods=["GET"])
+def getreq():
+    # if not 'Postman' in request.headers.get('User-Agent'):
+    #     return make_response(render_template('gobacktopostman.html'), 403) 
+    match request.args.get('name'):
+        case None:
+            #TODO: MAYBE ADD AN ACTUAL ERROR PAGE
+            return make_response(jsonify({"error":"Missing GET parameter. Please send an HTTP request with a valid Parameter."}), 400) 
+        case "1" | "2" | "3" | "4" | "5" | "6" | "7" | "9":
+            return make_response(jsonify({"Wrong guess": f"{request.args.get('name')} is not the correct number! please try again."}))
+        case "8":
+            return render_template('successwithflag.html', flag='FLAG2_NMBDV')
+        case _:
+            return make_response(jsonify({"error":"Missing GET parameter. Please send an HTTP request with a valid Parameter."}), 400)
+
+
+
+@app.route('/postform', methods=["GET", "POST"])
 def form():
     if not 'Postman' in request.headers.get('User-Agent'):
         return make_response(render_template('gobacktopostman.html'), 403)
-    if 'reboot01' != request.args.get('name', default=''):
-        return make_response(jsonify({"error": "Missing GET query parameter 'name'. Please try again. p.s its the school the presenters are representing!"}), 400)
-
+    
     if request.method == 'GET':
         return render_template('formexercise.html')
     elif request.method == 'POST':
@@ -47,9 +62,9 @@ def form():
         number = request.form.get('number') 
         if number == '400':
             return jsonify({
-                "response": "Good job! Here is the second flag {FLAG2_NMBDV}",
+                "response": "Good job! Here is the second flag {FLAG3_RBOOT}",
                 "info": "GET parameters are typically used to identify resources for the response and are visible in the URL, whilst POST values are usually used to submit data without exposing it in the URL, such as login details etc.",
-                "next-step": "Visit the /challenge path for your third flag."
+                "next-step": "Visit the /challenge path for your fourth flag."
             })
         else:
             return make_response( jsonify({
@@ -65,6 +80,9 @@ def freeflag():
 
 @app.route('/challenge', methods=["GET", "POST"])
 def challenge():
+    if not 'Postman' in request.headers.get('User-Agent'):
+        return make_response(render_template('gobacktopostman.html'), 403)
+    
     if request.method == 'GET':
         return render_template('challenger.html')
     elif request.method == 'POST':
