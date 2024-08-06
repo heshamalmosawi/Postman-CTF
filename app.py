@@ -126,11 +126,11 @@ def imageans():
     if request.method == 'GET':
         return render_template('storyans.html')
     elif request.method == 'POST':
-         flag8 = request.form.get('Flag8')
-         if flag8 == '{FLAG8_50}':
+        flag8 = request.form.get('Flag8')
+        if flag8 == '{FLAG8_136}':
             return '''<h1>Correct</h1>'''
-    else:
-        return '''<h1>Try Again</h1>'''
+        else:
+            return '''<h1>Try Again</h1>'''
 @app.before_request
 def before_request_func():
     flag = request.cookies.get('getflag')
