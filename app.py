@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, make_response, render_template, request
 
 app = Flask(__name__)
-app.json.sort_keys = False
+# app.json.sort_keys = False
 
 @app.route("/")
 def index():
@@ -109,6 +109,28 @@ def login():
         else:
             return "<h1>Try Again</h1>"
 
+@app.route('/image', methods=['GET'])
+def image():
+    if request.method == 'GET':
+        return render_template('imagery.html')
+
+    # elif request.method == 'POST':
+    #     flag8 = request.form.get('Flag8')
+    #     if flag8 == '{FLAG8_50}':
+    #         return '''<h1>Correct</h1>'''
+    else:
+            return '''<h1>Try Again</h1>'''
+
+@app.route('/imageanswer', methods=['GET','POST'])
+def imageans():
+    if request.method == 'GET':
+        return render_template('storyans.html')
+    elif request.method == 'POST':
+         flag8 = request.form.get('Flag8')
+         if flag8 == '{FLAG8_50}':
+            return '''<h1>Correct</h1>'''
+    else:
+        return '''<h1>Try Again</h1>'''
 @app.before_request
 def before_request_func():
     flag = request.cookies.get('getflag')
