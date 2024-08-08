@@ -6,10 +6,8 @@
 </head>
 <body>
     <img src="/static/dancing.gif" alt="dancing-gif">
-    <p>Good job! Here is your deserved flag '{{ flag }}'</p>
-    {% if next %}
-    <p>Go to /{{ next }} for the next flag.</p>
-    {% endif %}
-    {% if message %} <p> {{ message | safe }}</p>    {% endif %}
+    <p> Good job! Here is your deserved flag '{{ flag }}' </p>
+    {% if next %} <p> Go to /{{ next }} for the next flag. </p>{% endif %}
+    {% if message %} <p> {{ message | safe }} </p>    {% endif %}
 </body>
 </html>
