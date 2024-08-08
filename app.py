@@ -91,7 +91,7 @@ def challenge():
     if not 'Postman' in request.headers.get('User-Agent'):
         return make_response(render_template('gobacktopostman.html'), 403)
     
-    sha_cookie = request.cookies.get('SHA256_ENCRYPTED')
+    sha_cookie = request.cookies.get('BASE64_ENCRYPTED')
 
     if request.method == 'GET':
         if sha_cookie:
@@ -109,7 +109,7 @@ def login():
         if name == 'admin' and pwd == 'admin':
             return jsonify({'flag': 'FLAG5_EF2NJ', 
                             'Message': 'Add the below cookies to Postman, then send a GET request to /challenge for your next flag.',
-                            'first-cookie': 'SHA256_ENCRYPTED=33674db2d4e3b45263374658a165544f44af510a6fd304d100d1aed81971ccd1; Path=/; Expires=Tue, 05 Aug 2025 18:20:00 GMT;',
+                            'first-cookie': 'BASE64_ENCRYPTED=Q2hhbmdlIHRoZSBzZWNvbmQgZmxhZyAnZmFsc2UnIHRvICd0cnVlJyBmb3IgeW91ciA3dGggZmxhZy4K; Path=/; Expires=Tue, 05 Aug 2025 18:20:00 GMT;',
                             'second-cookie': 'getflag = false; Path=/; Expires=Tue, 05 Aug 2025 18:20:00 GMT;'
                             })
         else:
