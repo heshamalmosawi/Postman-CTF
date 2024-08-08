@@ -137,28 +137,5 @@ def freeflag():
     else:
         return '''<p>This is not a POST request!</p>'''
 
-@app.route('/image', methods=['GET'])
-def image():
-    if request.method == 'GET':
-        return render_template('imagery.html')
-
-    # elif request.method == 'POST':
-    #     flag8 = request.form.get('Flag8')
-    #     if flag8 == '{FLAG8_50}':
-    #         return '''<h1>Correct</h1>'''
-    else:
-            return '''<h1>Try Again</h1>'''
-
-@app.route('/imageanswer', methods=['GET','POST'])
-def imageans():
-    if request.method == 'GET':
-        return render_template('storyans.html')
-    elif request.method == 'POST':
-        flag8 = request.form.get('Flag8')
-        if flag8 == '{FLAG8_136}':
-            return '''<h1>Correct</h1>'''
-        else:
-            return '''<h1>Try Again</h1>'''
-
 if __name__ == '__main__':
     app.run(debug=True)
