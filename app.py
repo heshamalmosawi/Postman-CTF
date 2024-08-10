@@ -5,7 +5,7 @@ app.json.sort_keys = False
 
 @app.route("/")
 def index():
-    if request.args.get('gethint') == 'flag9':
+    if request.args.get('gethint') == 'flag10':
         return '''<p> Ever wonder how the secrets of the universe are hidden? Sometimes, you might need to dig through the image to uncover the truth. Maybe a hexadecimal explorer could help you find what you're looking for! </p> <br/> <p> Is there an explorer in the terminal? </p>'''
 
     return "<h1>Postman CTF</h1><p> Welcome to the &lt;challenge_name&gt;! In this &lt;challenge_name&gt we will explore how the web works, focusing in on HTTPS. As a first step, we will learn about the HTML Language. Please visit '<a href='/html'>/html</a>' to learn more!</p>"
@@ -131,11 +131,33 @@ def freeflag():
     elif request.method == 'POST':
         return jsonify({
                         'flag':'FLAG8_DJSND',
-                        'next': "The next flag is hidden _INSIDE_ one of the images on this website. You can add '/static/IMAGENAME.jpg' at the end of the URL and visit it on a browser to download them.",
-                        'hint': "To get a hint, you can send a GET request to the original URL with 'gethint?=flag9"
+                        'next': 'Navigate to /flag9 for your next flag.',
                         })
     else:
         return '''<p>This is not a POST request!</p>'''
+
+
+@app.route('/flag9', methods=["GET", "POST"])
+def flag9():
+    if 'Postman' in request.headers.get('User-Agent'):
+        return render_template("justatemplate.html", message="Welcome to the shadows! To see what’s hidden, you must look beneath the surface. Try curling a more detailed view.")
+    elif 'curl' in request.headers.get('User-Agent'):
+        if request.method == 'POST':
+            code = request.form.get('code')
+            if not code:
+                response =  make_response(render_template("justatemplate.html", message="Great Job! Now try sending a POST request through 'curl' with the HTTP 'code' of status 'Forbidden."))
+            elif code == '403':
+                response = make_response(render_template("justatemplate.html", message="Great! You’re getting closer. The devil is in the details, pay attention to the verbose output!", hint="hint: VXNlIGN1cmwgd2l0aCBhIHNwZWNpYWwgcGFyYW1ldGVyOiBgY3VybCAtdmAiCg=="))
+            else: 
+                response = make_response(render_template("justatemplate.html", message="The code is incorrect. Please send a POST request with the correct HTTP code to proceed."))
+            response.headers['FLAG'] = 'FLAG9_FGEWD'
+            response.headers['NEXT_FLAG'] = "The next flag is hidden _INSIDE_ one of the images on this website. You can add '/static/IMAGENAME.jpg' at the end of the URL and visit it on a browser to download them."
+            response.headers["FLAG10_HINT"] = "To get a hint, you can send a GET request to the original URL with 'gethint?=flag10"
+            return response
+        else: 
+            return render_template("justatemplate.html", message="To proceed, send a POST request through 'curl' with the HTTP 'code' of status 'Forbidden.")
+    else:
+        return make_response(render_template('gobacktopostman.html'), 403)
 
 if __name__ == '__main__':
     app.run(debug=True)
