@@ -140,7 +140,7 @@ def freeflag():
 @app.route('/flag9', methods=["GET", "POST"])
 def flag9():
     if 'Postman' in request.headers.get('User-Agent'):
-        return render_template("justatemplate.html", message="Welcome to the shadows! To see what’s hidden, you must look beneath the surface. Try curling a more detailed view.")
+        return render_template("justatemplate.html", message="To see what’s hidden, you must look beneath the surface. Try curling a more detailed view.")
     elif 'curl' in request.headers.get('User-Agent'):
         if request.method == 'POST':
             code = request.form.get('code')
@@ -152,7 +152,7 @@ def flag9():
                 response = make_response(render_template("justatemplate.html", message="The code is incorrect. Please send a POST request with the correct HTTP code to proceed."))
             response.headers['FLAG'] = 'FLAG9_FGEWD'
             response.headers['NEXT_FLAG'] = "The next flag is hidden _INSIDE_ one of the images on this website. You can add '/static/IMAGENAME.jpg' at the end of the URL and visit it on a browser to download them."
-            response.headers["FLAG10_HINT"] = "To get a hint, you can send a GET request to the original URL with 'gethint?=flag10"
+            response.headers["FLAG10_HINT"] = "To get a hint, you can send a GET request to the original URL with 'gethint?=flag10'"
             return response
         else: 
             return render_template("justatemplate.html", message="To proceed, send a POST request through 'curl' with the HTTP 'code' of status 'Forbidden.")
