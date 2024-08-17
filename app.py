@@ -79,7 +79,7 @@ def form():
             return jsonify({
                 "response": "Good job! Here is the fourth flag {FLAG4_HNIVW}",
                 "info": "POST values are usually used to submit data without exposing it in the URL, such as login details etc.",
-                "info2": "POST request are more secure than GET req",
+                "info2": "POST requests are generally more secure than GET requests for sending sensitive data, as POST sends the data in the request body rather than in the URL.",
                 "next-step": "Visit the /challenge path for your fifth flag."
             })
         else:
