@@ -86,6 +86,8 @@ def form():
             return make_response( jsonify({
                 "error": "HTTP POST request with invalid or empty form data! GET the page to view the form."
             }), 400)
+        
+    return make_response(jsonify({"error": "Invalid HTTP method. Please send a POST request with the correct form data."}), 405)
 
 @app.route('/challenge', methods=["GET"])
 def challenge():
