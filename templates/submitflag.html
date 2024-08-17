@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Flag Submission</title>
+    <link rel="stylesheet" href="style.css">
+
+
+    <html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CTF Flag Submission</title>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Base64 encoded flags
+                const correctFlags = ["RkxBRzFfQUJDREU=", "RkxBRzJfTk1CRFY="
+                    , "RkxBRzNfUkJPT1Q=", "RkxBRzRfSE5JVlc=",
+                    "RkxBRzVfRUYyTko=", "RkxBRzZfR1JXTk8=",
+                    "RkxBRzdfVk9FUko=", "RkxBRzhfREpTTkQ=", "RkxBRzlfRkdFV0Q=", "RkxBRzEwX1cxTk4zUg=="];
+                // Example challenge descriptions
+                const challengeDescriptions = [
+                    "Challenge 1 Description", "Challenge 2 Description", /* ... other challenges ... */
+                ];
+                const flagInputsContainer = document.getElementById('flag-inputs');
+                const challengeTextElement = document.getElementById('challenge-text'); // Get the challenge text element
+                let totalFlagsCorrect = 0; // Counter for correct flags
+
+                function createCommandLineInput(index) {
+                    let container = document.createElement('div');
+                    container.className = 'command-line';
+
+                    let input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = 'flag' + index;
+                    input.placeholder = `Enter Flag ${index}`;
+                    input.setAttribute('data-index', index);
+
+                    input.addEventListener('input', function (event) {
+                        const currentInput = event.target;
+                        const currentIndex = parseInt(currentInput.getAttribute('data-index'), 10);
+                        const decodedFlag = atob(correctFlags[currentIndex - 1]); // Decode the flag
+
+                        if (decodedFlag === currentInput.value.trim()) {
+                            currentInput.classList.add('correct');
+                            currentInput.disabled = true; // Disable input after correct entry
+                            totalFlagsCorrect++;
+
+                            if (totalFlagsCorrect === correctFlags.length) {
+                                showWinModal(); // Show win modal if all flags are correct
+                            } else {
+                                createCommandLineInput(currentIndex + 1); // Create next input
+                                updateChallengeText(currentIndex + 1); // Update challenge text for the next flag
+                            }
+                        }
+                    });
+
+                    container.appendChild(input);
+                    flagInputsContainer.appendChild(container);
+                    input.focus(); // Focus the new input field
+                }
+
+                function updateChallengeText(index) {
+                    // Update the challenge text to the current challenge
+                    challengeTextElement.textContent = challengeDescriptions[index - 1];
+                }
+
+                function showWinModal() {
+                    var modal = document.getElementById("win-modal");
+                    var span = document.getElementsByClassName("close")[0];
+
+                    modal.style.display = "block";
+
+                    // When the user clicks on <span> (x), close the modal
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function (event) {
+                        if (event.target === modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                }
+
+                // Start the first command line input and set the first challenge text
+                createCommandLineInput(1);
+                updateChallengeText(1); // Initialize the first challenge text
+            });
+
+
+        </script>
+
+        <style>
+            /* style.css */
+            body {
+                font-family: 'Courier New', monospace;
+                background-color: #434242;
+                /* Dark grey background */
+                color: #333;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            #terminal-window {
+                flex: 0 0 auto;
+                /* Do not grow, do not shrink, be automatically sized */
+                width: 70%;
+                /* Adjust the width as needed */
+                background-color: #2b2b2b;
+                /* Dark grey background for the window */
+                border-radius: 8px;
+                /* Rounded corners for the window */
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+                /* Shadow for depth */
+                overflow: hidden;
+                /* Ensures the inner content respects border radius */
+                margin: 10px;
+            }
+
+
+            #terminal-bar {
+                background-color: #1e1e1e;
+                /* Even darker grey for the title bar */
+                color: #fff;
+                padding: 10px 15px;
+                border-top-left-radius: 8px;
+                /* Rounded corners for the title bar */
+                border-top-right-radius: 8px;
+                display: flex;
+                align-items: center;
+            }
+
+            #terminal-controls {
+                margin-right: 10px;
+                display: flex;
+            }
+
+            .control-btn {
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                margin-right: 5px;
+                opacity: 0.7;
+            }
+
+            .control-btn:first-child {
+                background-color: #ff5f56;
+                /* Red */
+            }
+
+            .control-btn:nth-child(2) {
+                background-color: #ffbd2e;
+                /* Yellow */
+            }
+
+            .control-btn:last-child {
+                background-color: #27c93f;
+                /* Green */
+            }
+
+            #terminal-title {
+                flex-grow: 1;
+            }
+
+            #terminal {
+                padding: 20px;
+                background-color: #000;
+                /* Black background for the terminal content */
+                color: #0f0;
+                /* Green text for the terminal content */
+                height: 500px;
+                /* Fixed height for the content area */
+                overflow-y: auto;
+            }
+
+            .command-line {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .command-line::before {
+                content: 'user@ctf:~$';
+                margin-right: 10px;
+                color: #0f0;
+            }
+
+            input[type="text"] {
+                flex-grow: 1;
+                background-color: #000;
+                color: #0f0;
+                border: none;
+                padding: 5px;
+                font-family: 'Courier New', monospace;
+            }
+
+            input[type="text"]:focus {
+                outline: none;
+            }
+
+            input.correct {
+                background-color: #003300;
+            }
+
+            input.wrong {
+                background-color: #330000;
+            }
+
+            .modal {
+                display: none;
+                /* Hidden by default */
+                position: fixed;
+                /* Stay in place */
+                z-index: 1;
+                /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%;
+                /* Full width */
+                height: 100%;
+                /* Full height */
+                overflow: auto;
+                /* Enable scroll if needed */
+                background-color: rgb(0, 0, 0);
+                /* Fallback color */
+                background-color: rgba(0, 0, 0, 0.4);
+                /* Black w/ opacity */
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                /* Could be more or less, depending on screen size */
+                border-radius: 5px;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+
+            #app-container {
+                display: flex;
+                justify-content: space-around;
+                /* Distributes space before, between, and after the children */
+                align-items: flex-start;
+                /* Aligns children at the start of the cross axis */
+                width: 100%;
+                max-width: 1200px;
+                /* Adjust based on your preference */
+                margin-top: 20px;
+                flex-wrap: wrap;
+                /* Allows children to wrap onto multiple lines */
+            }
+
+            #terminal-window,
+            #challenge-container {
+                margin: 10px;
+                flex: 1;
+                /* Makes both containers take up equal space */
+            }
+
+            #challenge-container {
+                flex: 0 0 auto;
+                /* Do not grow, do not shrink, be automatically sized */
+                width: 25%;
+                /* Smaller width for the challenge container */
+                background-color: #333;
+                /* Dark background for the challenge container */
+                color: #fff;
+                /* Light text for readability */
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                height: 500px;
+                /* Should match the terminal window height */
+                overflow-y: auto;
+                /* Allows scrolling */
+                margin: 10px;
+            }
+
+            #challenge-text {
+                font-size: 1rem;
+                /* Additional styling for the challenge text */
+            }
+        </style>
+    </head>
+
+<body>
+
+    <div id="app-container"> <!-- Added container for layout -->
+        <div id="terminal-window">
+            <div id="terminal-bar">
+                <div id="terminal-controls">
+                    <span class="control-btn"></span>
+                    <span class="control-btn"></span>
+                    <span class="control-btn"></span>
+                </div>
+                <span id="terminal-title">CTF Challenge Terminal</span>
+            </div>
+            <div id="terminal">
+                <div id="flag-inputs">
+                    <!-- Command-line style inputs will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenge description box added -->
+        <div id="challenge-container">
+            <div id="challenge-text">
+                <!-- Challenge text will be dynamically updated here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="win-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Congratulations!</h2>
+            <p>You have successfully completed all challenges!</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

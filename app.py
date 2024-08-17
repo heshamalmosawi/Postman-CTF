@@ -159,5 +159,10 @@ def flag9():
     else:
         return make_response(render_template('gobacktopostman.html'), 403)
 
+
+@app.route('/submitflags')
+def submitflag():
+    return render_template('submitflag.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
