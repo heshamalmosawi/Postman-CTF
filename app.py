@@ -30,7 +30,7 @@ def challengeinfo():
     elif request.method == "POST":
         return jsonify({
             "Greetings": "Welcome to the challenge!",
-            "Goal": "To collect all flags and submit them through <github pages url>",
+            "Goal": "To collect all flags and submit them through the '/submitflags' path.",
             "Example": "As example, you would send an HTTP request through the Postman application and get a flag that will be written in the format 'FLAG1_ABCDE'",
             "Next-step": "Navigate to the '/flag2' path to continue with the challenge." #TODO update url
         })
@@ -150,7 +150,7 @@ def flag9():
             if not code:
                 response =  make_response(render_template("justatemplate.html", message="Great Job! Now try sending a POST request through 'curl' with the HTTP 'code' of status 'Forbidden'."))
             elif code == '403':
-                response = make_response(render_template("justatemplate.html", message="Great! You’re getting closer. The devil is in the details, pay attention to the verbose output!", hint="hint: VXNlIGN1cmwgd2l0aCBhIHNwZWNpYWwgcGFyYW1ldGVyOiBgY3VybCAtdmAiCg=="))
+                response = make_response(render_template("justatemplate.html", message="Great! You’re getting closer. The devil is in the details, pay attention to the verbose output!", hint="hint: VXNlIGN1cmwgd2l0aCBhIHNwZWNpYWwgcGFyYW1ldGVyOiAnY3VybCAtdicK"))
             else: 
                 response = make_response(render_template("justatemplate.html", message="The code is incorrect. Please send a POST request with the correct HTTP code to proceed."))
             response.headers['FLAG'] = 'FLAG9_FGEWD'
