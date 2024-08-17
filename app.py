@@ -148,7 +148,7 @@ def flag9():
         if request.method == 'POST':
             code = request.form.get('code')
             if not code:
-                response =  make_response(render_template("justatemplate.html", message="Great Job! Now try sending a POST request through 'curl' with the HTTP 'code' of status 'Forbidden."))
+                response =  make_response(render_template("justatemplate.html", message="Great Job! Now try sending a POST request through 'curl' with the HTTP 'code' of status 'Forbidden'."))
             elif code == '403':
                 response = make_response(render_template("justatemplate.html", message="Great! You’re getting closer. The devil is in the details, pay attention to the verbose output!", hint="hint: VXNlIGN1cmwgd2l0aCBhIHNwZWNpYWwgcGFyYW1ldGVyOiBgY3VybCAtdmAiCg=="))
             else: 
@@ -158,7 +158,7 @@ def flag9():
             response.headers["FLAG10_HINT"] = "To get a hint, you can send a GET request to the original URL with '?gethint=flag10'"
             return response
         else: 
-            return render_template("justatemplate.html", message="To proceed, send a POST request through 'curl' with the HTTP 'code' of status 'Forbidden.")
+            return render_template("justatemplate.html", message="To proceed, send a POST request through 'curl' with the HTTP 'code' of status 'Forbidden'.")
     else:
         return make_response(render_template('gobacktopostman.html'), 403)
 
