@@ -45,7 +45,7 @@ def flag2():
     elif request.args.get('take') == 'flag':
         return render_template('successwithflag.html', flag='FLAG2_NMBDV' , next="getrequest", message="Try to guess a number 1-10 through the GET request.")
     else:
-        slashmessage="With a blank '/' URL, you only requested the web page itself. However, you can ask for more specific data."  ""
+        slashmessage="After the main route is over, you can ask for more specific data using a GET request with a query"
         slashhint="Try asking for how to get the flag using adding '?get=hint' to the URL."
         return render_template("flag2q.html", message=slashmessage, message2=slashhint)
     
@@ -79,6 +79,7 @@ def form():
             return jsonify({
                 "response": "Good job! Here is the fourth flag {FLAG4_HNIVW}",
                 "info": "POST values are usually used to submit data without exposing it in the URL, such as login details etc.",
+                "info2": "POST request are more secure than GET req",
                 "next-step": "Visit the /challenge path for your fifth flag."
             })
         else:
@@ -152,7 +153,7 @@ def flag9():
                 response = make_response(render_template("justatemplate.html", message="The code is incorrect. Please send a POST request with the correct HTTP code to proceed."))
             response.headers['FLAG'] = 'FLAG9_FGEWD'
             response.headers['NEXT_FLAG'] = "The next flag is hidden _INSIDE_ one of the images on this website. You can add '/static/IMAGENAME.jpg' at the end of the URL and visit it on a browser to download them."
-            response.headers["FLAG10_HINT"] = "To get a hint, you can send a GET request to the original URL with 'gethint?=flag10'"
+            response.headers["FLAG10_HINT"] = "To get a hint, you can send a GET request to the original URL with '?gethint=flag10'"
             return response
         else: 
             return render_template("justatemplate.html", message="To proceed, send a POST request through 'curl' with the HTTP 'code' of status 'Forbidden.")
