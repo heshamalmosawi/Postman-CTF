@@ -28,7 +28,6 @@
                     "Challenge 1 Description", "Challenge 2 Description", /* ... other challenges ... */
                 ];
                 const flagInputsContainer = document.getElementById('flag-inputs');
-                const challengeTextElement = document.getElementById('challenge-text'); // Get the challenge text element
                 let totalFlagsCorrect = 0; // Counter for correct flags
 
                 function createCommandLineInput(index) {
@@ -279,36 +278,6 @@
                 /* Allows children to wrap onto multiple lines */
             }
 
-            #terminal-window,
-            #challenge-container {
-                margin: 10px;
-                flex: 1;
-                /* Makes both containers take up equal space */
-            }
-
-            #challenge-container {
-                flex: 0 0 auto;
-                /* Do not grow, do not shrink, be automatically sized */
-                width: 25%;
-                /* Smaller width for the challenge container */
-                background-color: #333;
-                /* Dark background for the challenge container */
-                color: #fff;
-                /* Light text for readability */
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                height: 500px;
-                /* Should match the terminal window height */
-                overflow-y: auto;
-                /* Allows scrolling */
-                margin: 10px;
-            }
-
-            #challenge-text {
-                font-size: 1rem;
-                /* Additional styling for the challenge text */
-            }
         </style>
     </head>
 
@@ -330,7 +299,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div id="win-modal" class="modal">
