@@ -8,7 +8,7 @@ def index():
     if request.args.get('gethint') == 'flag10':
         return '''<p> Ever wonder how the secrets of the universe are hidden? Sometimes, you might need to dig through the image to uncover the truth. Maybe a hexadecimal explorer could help you find what you're looking for! </p> <br/> <p> Is there an explorer in the terminal? </p>'''
 
-    return "<h1>Postman CTF</h1><p> Welcome to the &lt;challenge_name&gt;! In this &lt;challenge_name&gt we will explore how the web works, focusing in on HTTPS. As a first step, we will learn about the HTML Language. Please visit '<a href='/html'>/html</a>' to learn more!</p>"
+    return "<h1>Postman CTF</h1><p> Welcome to the Postman challenge! In this capture-the-flag activity we will explore how the web works, focusing in on HTTPS. As a first step, we will learn about the HTML Language. Please visit '<a href='/html'>/html</a>' to learn more!</p>"
 
 @app.route("/html", methods=["GET"])
 def html():
