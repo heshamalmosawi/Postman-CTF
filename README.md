@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```
 5. Run the python application
 ```bash
-python3 main.py
+python3 app.py
 ```
 
 ## Contributors

@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, make_response, render_template, request
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.json.sort_keys = False
@@ -110,10 +111,13 @@ def login():
         name = request.form.get('username')
         pwd = request.form.get('password')
         if name == 'admin' and pwd == 'admin':
+            expires = datetime.now() + timedelta(days=30)
+            expires_str = expires.strftime('%a, %d %b %Y %H:%M:%S GMT')
+            
             return jsonify({'flag': 'FLAG5_EF2NJ', 
                             'Message': 'Add the below cookies to Postman, then send a GET request to /challenge for your next flag.',
-                            'first-cookie': 'BASE64_ENCRYPTED=Q2hhbmdlIHRoZSBzZWNvbmQgZmxhZyAnZmFsc2UnIHRvICd0cnVlJyBmb3IgeW91ciA3dGggZmxhZy4K; Path=/; Expires=Tue, 05 Aug 2025 18:20:00 GMT;',
-                            'second-cookie': 'getflag = false; Path=/; Expires=Tue, 05 Aug 2025 18:20:00 GMT;'
+                            'first-cookie': f'BASE64_ENCRYPTED=Q2hhbmdlIHRoZSBzZWNvbmQgZmxhZyAnZmFsc2UnIHRvICd0cnVlJyBmb3IgeW91ciA3dGggZmxhZy4K; Path=/; Expires={expires_str};',
+                            'second-cookie': f'getflag = false; Path=/; Expires={expires_str};'
                             })
         else:
             return "<h1>Try Again</h1>"
